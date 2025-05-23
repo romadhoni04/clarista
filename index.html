@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clarista Cahya Saputri 💖</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- Tambahan favicon -->
+  <link rel="icon" href="https://github.com/romadhoni04/clarista/raw/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.36.57_04fe9cf6.jpg" type="image/png">
   <style>
     body {
       margin: 0;
@@ -330,35 +333,162 @@
   <div id="rainbowBar"></div>
 
   <h1>Clarista Cahya Saputri 💖 <span class="heartbeat">❤️</span></h1>
-  <h2 id="rotatingText">Kamu selalu cantik disetiap harinya 😍</h2>
+  <h2 id="rotatingText">Kamu selalu cantik disetiap harinya. 😍</h2>
 
   <button class="toggle-mode" onclick="toggleDarkMode()">Ganti Mode 🌗</button>
 
-  <div class="romantic-gallery">
-    <div class="slide-container active">
-      <img src="https://raw.githubusercontent.com/romadhoni04/clarista/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.31.01_2dbef7d3.jpg" />
-      <div class="caption">"Di matamu, aku pulang. 💖"</div>
-    </div>
-    <div class="slide-container">
-      <img src="https://raw.githubusercontent.com/romadhoni04/clarista/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.31.01_43c46d99.jpg" />
-      <div class="caption">"Tiap senyummu, meluruhkan lelahku. 🌸"</div>
-    </div>
-    <div class="slide-container">
-      <img src="https://raw.githubusercontent.com/romadhoni04/clarista/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.36.57_04fe9cf6.jpg" />
-      <div class="caption">"Semesta iri pada caraku mencintaimu. 🌌"</div>
-    </div>
-    <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
-    <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
-  </div>
-  
-
-  <div class="music">
-    <h2>Lagu Kita 🎶</h2>
-    <button onclick="document.getElementById('bgm').play()">🎶 Mainkan Musik</button>
-    <audio id="bgm" loop>
-      <source src="https://ik.imagekit.io/og4dod8sb/ytmp3free.cc_keisya-levronka-jadi-kekasihku-saja-official-music-video-youtubemp3free.org.mp3" type="audio/mp3">
+  <div class="music-control">
+    <h2>Lagu Cinta Kita 🎵</h2>
+    <button id="playPauseBtn">▶️ Mainkan Musik</button>
+    <audio id="lagu" loop>
+      <source src="https://github.com/romadhoni04/clarista/raw/main/ytmp3free.cc_keisya-levronka-jadi-kekasihku-saja-official-music-video-youtubemp3free.org.mp3" type="audio/mp3">
+      Browser kamu tidak mendukung audio.
     </audio>
   </div>
+  
+  <style>
+    .music-control {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #fbefff, #ffe9ec);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .music-control button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+  
+    .music-control button:hover {
+      background: #ff85c1;
+    }
+  
+    /* Mode gelap */
+    body.dark-mode .music-control {
+      background: linear-gradient(135deg, #4a3c4a, #2b1e2b);
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+      color: #fbefff;
+    }
+    body.dark-mode .music-control h2 {
+      color: #f8bbd0;
+    }
+    body.dark-mode .music-control button {
+      background: #d46a9e;
+      color: #fff;
+    }
+    body.dark-mode .music-control button:hover {
+      background: #c55f8f;
+    }
+  </style>
+  
+
+  <div class="love-letter">
+    <h2>All about clarista 📸</h2>
+  
+    <div class="romantic-gallery">
+      <div class="slide-container active">
+        <img src="https://raw.githubusercontent.com/romadhoni04/clarista/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.31.01_2dbef7d3.jpg" />
+        <div class="caption">"Di matamu, aku pulang. 💖"</div>
+      </div>
+      <div class="slide-container">
+        <img src="https://raw.githubusercontent.com/romadhoni04/clarista/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.31.01_43c46d99.jpg" />
+        <div class="caption">"Tiap senyummu, meluruhkan lelahku. 🌸"</div>
+      </div>
+      <div class="slide-container">
+        <img src="https://raw.githubusercontent.com/romadhoni04/clarista/main/Gambar%20WhatsApp%202025-05-23%20pukul%2015.36.57_04fe9cf6.jpg" />
+        <div class="caption">"Semesta iri pada caraku mencintaimu. 🌌"</div>
+      </div>
+      <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
+      <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
+    </div>
+  </div>
+  
+  
+
+  <style>
+    .music {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: linear-gradient(135deg, #fbefff, #ffe9ec);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .music h2 {
+      font-size: 1.8rem;
+      color: #a64ac9;
+      margin-bottom: 20px;
+    }
+  
+    .music button {
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+    }
+  
+    .music button:hover {
+      background: #ff85c1;
+    }
+  
+    .music video {
+      width: 100%;
+      max-width: 460px;
+      border-radius: 16px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+  
+  <div class="music">
+    <h2>Play Video 🎥</h2>
+    <button id="playVideoBtn">▶️ Putar Video</button>
+    <video id="bgVideo" controls loop>
+      <source src="https://github.com/romadhoni04/clarista/raw/main/lv_7279582576027782401_20250402195931.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+  </div>
+  
+  <script>
+    document.getElementById("playVideoBtn").addEventListener("click", function () {
+      const video = document.getElementById("bgVideo");
+      video.style.display = "block";
+      video.play();
+      this.style.display = "none"; // Sembunyikan tombol setelah video diputar
+    });
+  </script>
+  
+  
+  <script>
+    const btn = document.querySelector(".music button");
+    const video = document.getElementById("bgVideo");
+  
+    btn.addEventListener("click", () => {
+      video.style.display = "block";
+      video.play();
+    });
+  </script>
+  
 
   <div class="love-letter-container">
     <h3>Surat Cinta 💌</h3>
@@ -414,7 +544,34 @@
     <textarea rows="4" id="claristaMessage" placeholder="Tulis perasaan kamu di sini... 💭"></textarea>
     <button onclick="sendToWhatsApp()">Kirim 💌</button>
   </div>
-
+  
+  <script>
+    function sendToWhatsApp() {
+      const messageInput = document.getElementById('claristaMessage');
+      const message = messageInput.value.trim();
+  
+      if (message === "") {
+        alert("Tolong isi pesan dulu ya!");
+        return;
+      }
+  
+      // Contoh URL WhatsApp (ganti nomor sesuai tujuan)
+      const phoneNumber = "6281234567890"; 
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      
+      // Buka WhatsApp di tab baru
+      window.open(url, '_blank');
+  
+      // Setelah kirim, kosongkan textarea
+      messageInput.value = "";
+    }
+  
+    // Agar saat halaman direfresh textarea kosong otomatis
+    window.onload = function() {
+      document.getElementById('claristaMessage').value = "";
+    };
+  </script>
+  
   <div id="countdown"></div>
   <script>
     const targetDate = new Date("2024-03-12"); // ganti dengan tanggal jadian
@@ -434,10 +591,12 @@
 
   <button id="secretButton" onclick="alert('Aku juga cinta kamu selamanya! 💖💍')">💍 Klik kalau kamu cinta aku!</button>
 
+  <!-- <audio src="https://github.com/romadhoni04/clarista/raw/main/ytmp3free.cc_keisya-levronka-jadi-kekasihku-saja-official-music-video-youtubemp3free.org.mp3" autoplay="true" id="lagu" loop=""></audio> -->
   <audio id="clickSound" src="https://www.myinstants.com/media/sounds/pop-cat.mp3"></audio>
   <canvas id="starCanvas"></canvas>
 
   <script>
+
     // === SLIDESHOW 1 ===
     let simpleSlideIndex = 0;
     const simpleSlides = document.querySelectorAll('.slide');
@@ -575,7 +734,21 @@
     setInterval(drawStars, 100);
   </script>
   
-
+  <script>
+    const audio = document.getElementById("lagu");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+  
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.innerText = "⏸️ Jeda Musik";
+      } else {
+        audio.pause();
+        playPauseBtn.innerText = "▶️ Mainkan Musik";
+      }
+    });
+  </script>
+  
   
 </body>
 </html>
