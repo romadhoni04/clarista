@@ -1,254 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tracking Link Location Tracker</title>
-<link
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-  rel="stylesheet"
-/>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-sA+o5P/GBRKY+c5YrLsK5qp9Jj+YOh3XE0n2PSv8yH0="
-  crossorigin=""
-/>
-<style>
-  /* Reset and base */
-  * {
-    box-sizing: border-box;
-  }
-  body, html {
-    margin: 0;
-    height: 100vh;
-    font-family: 'Inter', sans-serif;
-    background: #121212;
-    color: #eee;
-    display: flex;
-    flex-direction: column;
-  }
-  header {
-    background: linear-gradient(135deg, #7c3aed, #4c1d95);
-    padding: 16px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  header .material-icons {
-    font-size: 2rem;
-  }
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    margin: 16px auto;
-    padding: 0 16px 32px;
-    width: 100%;
-  }
-  h1 {
-    margin-bottom: 24px;
-    text-align: center;
-    font-weight: 900;
-    color: #d8b4fe;
-  }
-  .container {
-    background: #1f1f1f;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-    color: #b891f9;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 1rem;
-    background: #2a2a2a;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    outline-offset: 2px;
-    outline-color: #7c3aed;
-  }
-  input[type="text"]:focus {
-    outline-color: #c084fc;
-  }
-  button {
-    margin-top: 16px;
-    background: #7c3aed;
-    color: white;
-    border: none;
-    padding: 14px 24px;
-    font-weight: 700;
-    font-size: 1rem;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  button:hover, button:focus {
-    background: #a78bfa;
-    outline: none;
-  }
-  .section {
-    margin-top: 40px;
-  }
-  .tracking-link {
-    background: #2a2a2a;
-    padding: 12px 16px;
-    border-radius: 12px;
-    margin-top: 16px;
-    word-break: break-all;
-    user-select: all;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  .tracking-link:hover {
-    background: #3a2a6a;
-  }
-  .info-text {
-    font-size: 0.9rem;
-    color: #a5a5a5;
-    margin-top: 8px;
-  }
-  #map {
-    height: 400px;
-    margin-top: 16px;
-    border-radius: 16px;
-    box-shadow: 0 0 16px rgba(124, 58, 237, 0.7);
-  }
-  .locations-list {
-    max-height: 180px;
-    overflow-y: auto;
-    margin-top: 12px;
-    background: #2a2a2a;
-    border-radius: 12px;
-    padding: 12px 16px;
-    color: #ccc;
-    font-size: 0.9rem;
-  }
-  .locations-list li {
-    margin-bottom: 6px;
-  }
-  nav {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  nav button {
-    background: #4c1d95;
-    padding: 10px 18px;
-    border-radius: 14px;
-    font-weight: 600;
-  }
-  nav button:hover, nav button:focus {
-    background: #7c3aed;
-  }
-  /* Visitor page styles */
-  #visitor-container {
-    max-width: 700px;
-    margin: 40px auto;
-    background: #1f1f1f;
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 0 20px rgba(124, 58, 237, 0.7);
-    text-align: center;
-  }
-  #visitor-container p {
-    font-size: 1.2rem;
-    margin-bottom: 24px;
-  }
-  #visitor-status {
-    margin: 8px 0 20px;
-    font-size: 1rem;
-    color: #d19fff;
-  }
-  #visitor-map {
-    height: 350px;
-    border-radius: 16px;
-    box-shadow: 0 0 16px rgba(124, 58, 237, 0.7);
-  }
-  /* Responsive */
-  @media (max-width: 720px) {
-    #map, #visitor-map {
-      height: 300px;
-    }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pelacak Lokasi</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { font-family: sans-serif; background: #111; color: #eee; margin: 0; }
+    main { padding: 20px; max-width: 800px; margin: auto; }
+    #map { height: 400px; border-radius: 12px; margin-top: 20px; }
+    button { padding: 10px 20px; border: none; border-radius: 8px; background: #4c1d95; color: white; font-weight: bold; cursor: pointer; }
+  </style>
 </head>
 <body>
-<header>
-  <span class="material-icons">location_on</span>
-  Tracking Link Location Tracker
-</header>
 <main>
-  <div id="creator-view" class="container" role="main" aria-label="Creator interface for generating and viewing tracking links">
-    <h1>Buat Tracking Link</h1>
-    <form id="create-link-form" aria-describedby="info-create-link">
-      <label for="linkName">Nama untuk link (opsional):</label>
-      <input type="text" id="linkName" name="linkName" placeholder="Contoh: Link Teman, Acara 1" autocomplete="off" />
-      <button type="submit" aria-label="Buat link pelacakan baru">
-        <span class="material-icons">add_link</span> Buat Link
-      </button>
-      <p id="info-create-link" class="info-text">
-        Setelah membuat, Anda akan mendapatkan tautan tracking yang bisa dibagikan kepada orang lain.
-      </p>
-    </form>
-    <div id="links-section" class="section" aria-live="polite" aria-atomic="true">
-      <h2>Link Tracking Anda</h2>
-      <ul id="links-list" style="list-style:none; padding-left:0;"></ul>
-      <p id="no-links-message" class="info-text">Belum ada link tracking yang dibuat.</p>
-    </div>
-    <div id="map-section" class="section" aria-label="Peta lokasi real-time untuk link tracking terpilih" style="display:none;">
-      <h2>Lokasi Terkini</h2>
-      <div id="map"></div>
-      <nav aria-label="Kontrol navigasi lokasi">
-        <button id="btn-refresh-map">Segarkan Lokasi</button>
-        <button id="btn-clear-locations">Hapus Lokasi</button>
-      </nav>
-      <ul id="locations-list" class="locations-list" aria-live="polite"></ul>
-    </div>
+  <h1>Pelacak Lokasi</h1>
+  <div id="create" style="display:block;">
+    <button onclick="buatLink()">Buat Link Tracking</button>
+    <div id="linkOutput"></div>
   </div>
-
-  <div id="visitor-view" style="display:none;" aria-label="Halaman pelacak lokasi untuk pengunjung link tracking">
-    <div id="visitor-container">
-      <h1>Anda Membuka Link Pelacakan Lokasi</h1>
-      <p>Halaman ini akan membagikan lokasi Anda secara real-time ke pembuat link saat Anda mengizinkannya.</p>
-      <p id="visitor-status" aria-live="polite" aria-atomic="true">Meminta izin lokasi...</p>
-      <div id="visitor-map"></div>
-    </div>
+  <div id="visitor" style="display:none;">
+    <p id="status">Meminta izin lokasi...</p>
+    <div id="map"></div>
   </div>
 </main>
 
-<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-
-<!-- Leaflet -->
-<script
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-o9N1j9+Se6k7WkkGN+pFniCsshs/3ypyX33MZD+o6kU="
-  crossorigin=""
-></script>
-
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // Configure your Firebase project here - REPLACE WITH YOUR OWN CONFIG
-  const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDcY-1fLiHL6X7KsPcKKgQ9HtUhGW-lR2o",
   authDomain: "lokasi-2d1f4.firebaseapp.com",
   databaseURL: "https://lokasi-2d1f4-default-rtdb.firebaseio.com",
@@ -258,298 +39,47 @@
   appId: "1:83894405013:web:fcd8136f0fa96ac387589c",
   measurementId: "G-8C7M1VWPQ3"
 };
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
+const urlParams = new URLSearchParams(location.search);
+const id = urlParams.get("id");
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const database = firebase.database();
+if (id) {
+  document.getElementById("create").style.display = "none";
+  document.getElementById("visitor").style.display = "block";
+  runVisitor(id);
+}
 
-  // Utils
-  function generateId(length = 12) {
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let result = '';
-    for(let i=0; i<length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
+function buatLink() {
+  const id = Math.random().toString(36).substr(2, 8);
+  const link = location.origin + location.pathname + "?id=" + id;
+  document.getElementById("linkOutput").innerHTML = `<p>Bagikan link ini:</p><input value="${link}" readonly style="width:100%;">`;
+}
+
+function runVisitor(id) {
+  if (!navigator.geolocation) {
+    document.getElementById("status").innerText = "Browser tidak mendukung geolocation";
+    return;
   }
+  const map = L.map('map').setView([-2.5, 118], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+  let marker;
 
-  // Select DOM
-  const creatorView = document.getElementById('creator-view');
-  const visitorView = document.getElementById('visitor-view');
-  const createLinkForm = document.getElementById('create-link-form');
-  const linkNameInput = document.getElementById('linkName');
-  const linksList = document.getElementById('links-list');
-  const noLinksMessage = document.getElementById('no-links-message');
-  const mapSection = document.getElementById('map-section');
-  const mapContainer = document.getElementById('map');
-  const locationsList = document.getElementById('locations-list');
-  const btnRefreshMap = document.getElementById('btn-refresh-map');
-  const btnClearLocations = document.getElementById('btn-clear-locations');
-
-  // Visitor elements
-  const visitorStatus = document.getElementById('visitor-status');
-  const visitorMapContainer = document.getElementById('visitor-map');
-
-  // State
-  let links = JSON.parse(localStorage.getItem('trackingLinks') || '[]');
-  let selectedLinkId = null;
-  let locations = new Map(); // key: location id, value: {lat,lng,time}
-  let map = null;
-  let markersLayer = null;
-  let visitorMap = null;
-  let visitorMarker = null;
-  let watchId = null;
-  let visitorTrackingId = null; // link ID in URL
-
-  // Check URL parameters to detect if visitor or creator
-  const urlParams = new URLSearchParams(window.location.search);
-  visitorTrackingId = urlParams.get('link');
-
-  if(visitorTrackingId) {
-    // Visitor view mode
-    creatorView.style.display = 'none';
-    visitorView.style.display = 'block';
-    initVisitorView(visitorTrackingId);
-  } else {
-    // Creator mode
-    visitorView.style.display = 'none';
-    creatorView.style.display = 'block';
-    renderLinksList();
-  }
-
-  // Creator mode logic
-
-  function saveLinks() {
-    localStorage.setItem('trackingLinks', JSON.stringify(links));
-  }
-
-  createLinkForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = linkNameInput.value.trim() || 'Tracking Link';
-    const id = generateId(8);
-
-    // Create new link object
-    const newLink = {
-      id,
-      name,
-      created: new Date().toISOString()
-    };
-    links.push(newLink);
-    saveLinks();
-    renderLinksList();
-    linkNameInput.value = '';
-    selectLink(id);
-  });
-
-  function renderLinksList() {
-    linksList.innerHTML = '';
-    if(links.length === 0) {
-      noLinksMessage.style.display = 'block';
-      mapSection.style.display = 'none';
-      return;
-    }
-    noLinksMessage.style.display = 'none';
-    for(let link of links) {
-      const li = document.createElement('li');
-      li.tabIndex = 0;
-      li.className = 'tracking-link';
-      li.textContent = window.location.origin + window.location.pathname + '?link=' + link.id;
-      li.title = 'Klik untuk pilih link ini';
-      li.setAttribute('role', 'button');
-      li.setAttribute('aria-pressed', selectedLinkId === link.id ? 'true' : 'false');
-      li.onkeydown = e => { if(e.key==='Enter' || e.key===' ') selectLink(link.id); }
-      li.onclick = () => selectLink(link.id);
-      if(selectedLinkId === link.id) {
-        li.style.backgroundColor = '#7c3aed';
-        li.style.color = 'white';
-      }
-      linksList.appendChild(li);
-    }
-  }
-
-  function selectLink(id) {
-    selectedLinkId = id;
-    renderLinksList();
-    if(!map) initMap();
-    loadLocations(id);
-    mapSection.style.display = 'block';
-  }
-
-  function initMap() {
-    if(map) return;
-    map = L.map(mapContainer, {
-      center: [-2.5, 118],
-      zoom: 5,
-      zoomControl: true,
-      attributionControl: false,
-    });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      maxZoom: 19,
-      minZoom: 2
-    }).addTo(map);
-
-    markersLayer = L.layerGroup().addTo(map);
-  }
-
-  function loadLocations(linkId) {
-    locations.clear();
-    markersLayer.clearLayers();
-    locationsList.innerHTML = '';
-    const locRef = database.ref('trackingLocations/' + linkId);
-    locRef.off();
-
-    // Listen for new locations real-time
-    locRef.on('child_added', snapshot => {
-      const locationData = snapshot.val();
-      // locationData: {lat, lng, timestamp}
-      const key = snapshot.key;
-      if(!locations.has(key)) {
-        locations.set(key, locationData);
-        addMarkerToMap(key, locationData);
-        addLocationToList(key, locationData);
-      }
-    });
-
-    // Optionally listen for removed locations
-    locRef.on('child_removed', snapshot => {
-      const key = snapshot.key;
-      if(locations.has(key)) {
-        removeMarker(key);
-        locations.delete(key);
-        removeLocationFromList(key);
-      }
-    });
-  }
-
-  function addMarkerToMap(key, loc) {
-    const marker = L.marker([loc.lat, loc.lng]).addTo(markersLayer);
-    const dateStr = new Date(loc.timestamp).toLocaleString();
-    marker.bindPopup(`Lokasi terakhir dilaporkan:<br>Waktu: ${dateStr}`);
-    marker._trackingKey = key;
-  }
-
-  function removeMarker(key) {
-    markersLayer.eachLayer(marker => {
-      if(marker._trackingKey === key) {
-        markersLayer.removeLayer(marker);
-      }
-    });
-  }
-
-  function addLocationToList(key, loc) {
-    const li = document.createElement('li');
-    li.id = 'loc-' + key;
-    const dateStr = new Date(loc.timestamp).toLocaleString();
-    li.textContent = `Lat: ${loc.lat.toFixed(6)}, Lng: ${loc.lng.toFixed(6)} - ${dateStr}`;
-    locationsList.appendChild(li);
-  }
-
-  function removeLocationFromList(key) {
-    const li = document.getElementById('loc-' + key);
-    if(li) li.remove();
-  }
-
-  btnRefreshMap.addEventListener('click', () => {
-    // Reload locations for selected link
-    if(selectedLinkId) {
-      loadLocations(selectedLinkId);
-    }
-  });
-
-  btnClearLocations.addEventListener('click', () => {
-    if(!selectedLinkId) return;
-    const confirmClear = confirm('Apakah Anda yakin ingin menghapus semua lokasi yang sudah terkirim untuk link ini?');
-    if(!confirmClear) return;
-    database.ref('trackingLocations/' + selectedLinkId).remove()
-      .then(() => {
-        alert('Semua lokasi berhasil dihapus.');
-        locations.clear();
-        markersLayer.clearLayers();
-        locationsList.innerHTML = '';
-      }).catch(err => {
-        alert('Gagal menghapus lokasi: ' + err.message);
-      });
-  });
-
-  // Visitor mode logic
-  function initVisitorView(linkId) {
-    visitorStatus.textContent = 'Meminta izin lokasi...';
-    initVisitorMap();
-
-    if(!navigator.geolocation) {
-      visitorStatus.textContent = 'Geolocation tidak didukung oleh browser Anda.';
-      return;
-    }
-
-    watchId = navigator.geolocation.watchPosition(position => {
-      visitorStatus.textContent = 'Lokasi berhasil diperoleh dan dibagikan.';
-      updateVisitorLocation(position);
-    }, err => {
-      switch(err.code) {
-        case err.PERMISSION_DENIED:
-          visitorStatus.textContent = 'Izin lokasi ditolak. Lokasi tidak dapat dibagikan.';
-          break;
-        case err.POSITION_UNAVAILABLE:
-          visitorStatus.textContent = 'Informasi lokasi tidak tersedia.';
-          break;
-        case err.TIMEOUT:
-          visitorStatus.textContent = 'Permintaan lokasi melebihi waktu tunggu.';
-          break;
-        default:
-          visitorStatus.textContent = 'Terjadi kesalahan saat mengambil lokasi.';
-      }
-    }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 10000 });
-
-    window.onbeforeunload = () => {
-      // Cleanup visitor location on unload
-      if(visitorTrackingId && visitorRef) {
-        visitorRef.remove();
-      }
-    };
-  }
-
-  let visitorRef = null;
-  function updateVisitorLocation(position) {
-    const lat = position.coords.latitude;
-    const lng = position.coords.longitude;
-    const timestamp = new Date().toISOString();
-
-    if(!visitorRef) visitorRef = database.ref('trackingLocations/' + visitorTrackingId).push();
-    else visitorRef = visitorRef.ref;
-
-    visitorRef.set({
-      lat,
-      lng,
-      timestamp
-    });
-
-    updateVisitorMarker(lat, lng);
-  }
-
-  function initVisitorMap() {
-    visitorMap = L.map(visitorMapContainer, {
-      center: [-2.5, 118],
-      zoom: 5,
-      zoomControl: true,
-      attributionControl: false,
-    });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      maxZoom: 19,
-      minZoom: 2
-    }).addTo(visitorMap);
-
-    visitorMarker = null;
-  }
-
-  function updateVisitorMarker(lat, lng) {
-    if(!visitorMarker) {
-      visitorMarker = L.marker([lat, lng]).addTo(visitorMap);
-      visitorMap.setView([lat, lng], 15);
+  navigator.geolocation.watchPosition(pos => {
+    const { latitude, longitude } = pos.coords;
+    db.ref("locations/" + id).set({ lat: latitude, lng: longitude, time: Date.now() });
+    document.getElementById("status").innerText = "Lokasi dikirim: " + latitude.toFixed(5) + ", " + longitude.toFixed(5);
+    if (!marker) {
+      marker = L.marker([latitude, longitude]).addTo(map);
+      map.setView([latitude, longitude], 15);
     } else {
-      visitorMarker.setLatLng([lat, lng]);
+      marker.setLatLng([latitude, longitude]);
     }
-  }
+  }, err => {
+    document.getElementById("status").innerText = "Gagal dapat lokasi: " + err.message;
+  }, { enableHighAccuracy: true });
+}
 </script>
 </body>
 </html>
