@@ -57,8 +57,16 @@ function buatLink() {
   const newId = Math.random().toString(36).substr(2, 8);
   const link = location.origin + location.pathname + "?id=" + newId;
   document.getElementById("linkOutput").innerHTML = `<p>Bagikan link ini:</p><input value="${link}" readonly style="width:100%;">`;
+  localStorage.setItem("trackingLinkId", newId);
   showMap(newId);
 }
+
+// Saat load halaman
+const savedId = localStorage.getItem("trackingLinkId");
+if (!id && savedId) {
+  showMap(savedId);
+}
+
 
 function showMap(linkId) {
   document.getElementById("map").style.display = "block";
