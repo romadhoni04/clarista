@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pelacak Lokasi</title>
+  <title>Pelacak Lokasi Real-Time</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body { font-family: sans-serif; background: #111; color: #eee; margin: 0; }
@@ -14,14 +14,14 @@
 </head>
 <body>
 <main>
-  <h1>Pelacak Lokasi</h1>
-  <div id="create" style="display:block;">
+  <h1>Pelacak Lokasi Real-Time</h1>
+  <div id="creator" style="display: block;">
     <button onclick="buatLink()">Buat Link Tracking</button>
     <div id="linkOutput"></div>
+    <div id="map" style="display: none;"></div>
   </div>
-  <div id="visitor" style="display:none;">
+  <div id="visitor" style="display: none;">
     <p id="status">Meminta izin lokasi...</p>
-    <div id="map"></div>
   </div>
 </main>
 
@@ -30,52 +30,67 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyDcY-1fLiHL6X7KsPcKKgQ9HtUhGW-lR2o",
-  authDomain: "lokasi-2d1f4.firebaseapp.com",
-  databaseURL: "https://lokasi-2d1f4-default-rtdb.firebaseio.com",
-  projectId: "lokasi-2d1f4",
-  storageBucket: "lokasi-2d1f4.firebasestorage.app",
-  messagingSenderId: "83894405013",
-  appId: "1:83894405013:web:fcd8136f0fa96ac387589c",
-  measurementId: "G-8C7M1VWPQ3"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+  projectId: "YOUR_PROJECT",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-const urlParams = new URLSearchParams(location.search);
-const id = urlParams.get("id");
+const params = new URLSearchParams(location.search);
+const id = params.get("id");
 
 if (id) {
-  document.getElementById("create").style.display = "none";
+  // Visitor mode
+  document.getElementById("creator").style.display = "none";
   document.getElementById("visitor").style.display = "block";
   runVisitor(id);
+} else {
+  // Creator mode
 }
 
 function buatLink() {
-  const id = Math.random().toString(36).substr(2, 8);
-  const link = location.origin + location.pathname + "?id=" + id;
+  const newId = Math.random().toString(36).substr(2, 8);
+  const link = location.origin + location.pathname + "?id=" + newId;
   document.getElementById("linkOutput").innerHTML = `<p>Bagikan link ini:</p><input value="${link}" readonly style="width:100%;">`;
+  showMap(newId);
 }
 
-function runVisitor(id) {
-  if (!navigator.geolocation) {
-    document.getElementById("status").innerText = "Browser tidak mendukung geolocation";
-    return;
-  }
+function showMap(linkId) {
+  document.getElementById("map").style.display = "block";
   const map = L.map('map').setView([-2.5, 118], 5);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
   let marker;
 
-  navigator.geolocation.watchPosition(pos => {
-    const { latitude, longitude } = pos.coords;
-    db.ref("locations/" + id).set({ lat: latitude, lng: longitude, time: Date.now() });
-    document.getElementById("status").innerText = "Lokasi dikirim: " + latitude.toFixed(5) + ", " + longitude.toFixed(5);
-    if (!marker) {
-      marker = L.marker([latitude, longitude]).addTo(map);
-      map.setView([latitude, longitude], 15);
-    } else {
-      marker.setLatLng([latitude, longitude]);
+  db.ref("locations/" + linkId).on("value", snap => {
+    const data = snap.val();
+    if (data) {
+      if (!marker) {
+        marker = L.marker([data.lat, data.lng]).addTo(map);
+        map.setView([data.lat, data.lng], 15);
+      } else {
+        marker.setLatLng([data.lat, data.lng]);
+      }
     }
+  });
+}
+
+function runVisitor(linkId) {
+  if (!navigator.geolocation) {
+    document.getElementById("status").innerText = "Browser tidak mendukung geolocation";
+    return;
+  }
+  navigator.geolocation.watchPosition(pos => {
+    db.ref("locations/" + linkId).set({
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+      time: Date.now()
+    });
+    document.getElementById("status").innerText = `Lokasi dikirim: ${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
   }, err => {
     document.getElementById("status").innerText = "Gagal dapat lokasi: " + err.message;
   }, { enableHighAccuracy: true });
