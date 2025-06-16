@@ -90,17 +90,20 @@ function showMap(id) {
     }
     if (listener) listener.off();
     listener = db.ref("locations/" + id);
-    listener.on("value", snap => {
-      const data = snap.val();
-      if (data) {
-        if (!marker) {
-          marker = L.marker([data.lat, data.lng]).addTo(map);
-          map.setView([data.lat, data.lng], 15);
-        } else {
-          marker.setLatLng([data.lat, data.lng]);
-        }
-      }
-    });
+listener.on("value", snap => {
+  const data = snap.val();
+  if (data) {
+    const { lat, lng } = data;
+    if (!marker) {
+      marker = L.marker([lat, lng]).addTo(map);
+    }
+    marker.setLatLng([lat, lng]);
+    marker.bindPopup(`<a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" style="color:#7c3aed;">Lihat di Google Maps</a>`);
+    marker.openPopup();
+    map.setView([lat, lng], 15);
+  }
+});
+
   }, 50);  // 50 ms delay untuk memastikan DOM render
 }
 
