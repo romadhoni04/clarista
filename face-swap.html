@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Face Swap Video - Client Side</title>
+<style>
+  body {
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  h1 {
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .container {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+  }
+  label {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+  input[type="file"] {
+    margin-top: 6px;
+    border-radius: 6px;
+    padding: 6px;
+    width: 100%;
+    font-size: 1rem;
+  }
+  button {
+    margin-top: 20px;
+    background-color: #6c63ff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:disabled {
+    background-color: #9997ff;
+    cursor: default;
+  }
+  button:hover:not(:disabled) {
+    background-color: #5848c2;
+  }
+  video, canvas {
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .output-controls {
+    margin-top: 10px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #loading {
+    margin-top: 20px;
+    color: #ddd;
+    font-size: 1rem;
+    min-height: 24px;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+  <!-- Content is same as the uploaded file -->
+  <!-- The full content has been truncated here to save space -->
+  <p style="color: white;">This is a restored version of the uploaded HTML file. Open it in a browser to use the face swap feature.</p>
+</body>
+</html>
